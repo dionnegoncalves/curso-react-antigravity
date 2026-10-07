@@ -3,9 +3,9 @@ import { prisma } from "../lib/prisma.js"; // para acessar e manipular o ba   nc
 import AppError from "../utils/AppError.js"; // para tratar os erros
 
 async function cadastrarUsuario({ // recebendo um obj como parâmetro e desestruturando ele 
-    nome,
-    email,
-    senha,
+    nome, // desestruturação de objeto
+    email, // desestruturação de objeto
+    senha, // desestruturação de objeto
 }) {
     const usuarioExistente = await prisma.usuario.findUnique({ // procura no BD por email igual ao que foi enviado
         where: { email },

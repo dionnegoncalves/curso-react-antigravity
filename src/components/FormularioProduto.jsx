@@ -13,7 +13,7 @@ function FormularioProduto({
 }) {
 
     return (
-        <form className="flex flex-col max-w-md mx-auto gap-5 " onSubmit={adicionarProduto /*não está passando o que será inserido ou editado*/}>
+        <form className="flex flex-col max-w-md mx-auto gap-5 " onSubmit={adicionarProduto /*não está passando o que será inserido ou editado como parâmetro*/}>
             <input className="border-2 border-gray-400 rounded"
                 type="text"
                 placeholder="Nome do produto"
