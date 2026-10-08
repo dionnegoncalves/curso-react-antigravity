@@ -38,10 +38,43 @@ async function login(req, res) {
         }
     );
 
+    res.cookie("token", token, // para impedir roubo de cookie, usamos secure: true, sameSite: "strict", httpOnly: true
+        // assimo javascript nao pode fazer documento.cookie = contra ataque XSS       
+        {
+            httpOnly: true, // o que isso faz? respostas: impede que o token seja acessado por scripts do lado do cliente, como o javascript
+            sameSite: "lax", // o que isso faz? respostas: controla as restrições de envio de cookies entre diferentes domínios
+            secure: process.env.NODE_ENV === "production", // o que isso faz? respostas: permite apenas que cookies sejam enviados em 
+            // conexões HTTPS, em produção
+            maxAge: 60 * 60 * 1000, // 1 hora em milissegundos
+
+            /*
+            secure: true,
+            sameSite: "strict",
+            maxAge: 60 * 60 * 1000,*/
+        }
+    );
+
+    res.status(200).json({
+        message: "Login realizado com sucesso",
+        usuario,
+    });
 }
 
+function logout(req, res) {
+    res.clearCookie(
+        "token",
+        {
+            httpOnly: true,
+            sameSite: "1ax",
+            secure: process.env.NODE_ENV === "production",
+        }
+    );
 
+    res.status(204).send();
+}
 
-
-const jwtSecret = process.env.JWT_SECRET;
-
+export {
+    cadastrar,
+    login,
+    logout,
+};
