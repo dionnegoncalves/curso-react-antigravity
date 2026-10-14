@@ -7,12 +7,16 @@ import produtoRoutes from "./routes/produtoRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import notFound from "./middlewares/notFound.js";
 
+import cookieParser from "cookie-parser";
+
+import authRoutes from "./routes/authRoutes.js";
+
 const app = express();
 
 app.use(cors({
     origin:
-        process.env.FRONTEND_URL || "http://localhost:5173",
-    // credentials:true, // necessário quando usamos cookies autenticação
+        process.env.FRONTEND_URL || "http://localhost:5173", // credentials:true, // necessário quando usamos cookies autenticação
+    credentials: true, // permite comunicação envolvendo cookies entre frontend e backend
 }));
 
 app.use(express.json()); // esta linha esta convertendo o json que chega do frontend em objeto javascript, esse json vem de onde? respostas: ele vem do frontend ao enviar os dados.
@@ -30,6 +34,9 @@ app.use(express.json()); // esta linha esta convertendo o json que chega do fron
 // onde estão ficando salvos o objeto javascript que o app.use converte de json para js? respostas: nas constantes req.body, req.query, req.params
 // qual a diferença entre elas? respostas: req.body é usado para enviar dados do frontend para o backend. req.query é usado para enviar dados do frontend para o backend. req.params é usado para enviar dados do frontend para o backend.
 
+// o que é cookie-parser? respostas: é uma biblioteca que é usada para analisar cookies que são enviados pelo frontend.
+app.use(cookieParser());
+
 app.get("/", function (req, res) {
     res.json({
         mensagem: "API funcionando",
@@ -46,6 +53,8 @@ app.use(
 // ele chama o middleware. se não tiver, ele verifica se tem alguma rota que vai tratar essa requisição, se tiver, ele chama a rota.
 // se não tiver, ele chama o errorHandler.
 
+
+app.use("/auth", authRoutes); // chama as rotas de autenticação (cad, login e logout)
 
 app.use(notFound); // por que essa função está sendo chamada toda hora? respostas: porque ela está sendo chamada toda vez que o 
 // frontend envia uma requisição para o backend.

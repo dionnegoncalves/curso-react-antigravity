@@ -12,15 +12,21 @@ function App() {
   const [produtos, setProdutos] = useState([]);
   const [produtoEmEdicao, setProdutoEmEdicao] = useState(null); // null significa "nenhum produto em edição"
 
-  // useEffect é para fazer requisições quando o componente montar (for criado, ser modificado ou destruido) // o uso do [] fala para o useEffect para executar somente uma vez, quando o componente for montado
+  // useEffect é para fazer requisições quando o componente montar (for criado, ser modificado ou destruido) // o uso do [] fala para o useEffect para executar 
+  // somente uma vez, quando o componente for montado
   useEffect(() => {
     carregadorProdutos();
-  }, []); //usa-se o [] para informar que a função deve ser executado somente uma vez, quando o componente for montado (na raiz) // se colocar uma variável dentro do array, o useEffect será executado toda vez que a variável for alterada
+  }, []); //usa-se o [] para informar que a função deve ser executado somente uma vez, quando o componente for montado (na raiz) // se colocar uma variável
+  // dentro do array, o useEffect será executado toda vez que a variável for alterada
 
   // buscando produto do BD e jogando no componente
   async function carregadorProdutos() { // o async é só pra funções assincronas, ele é como um "aviso" pra dizer que a função vai usar await
     try {
-      const resposta = await fetch("http://localhost:3001/produtos"); // await para aguardar carregar os produtos
+      const resposta = await fetch("http://localhost:3001/produtos",
+        {
+          credentials: "include",
+        }
+      ); // await para aguardar carregar os produtos
 
       if (!resposta.ok) {
         throw new Error("Erro ao buscar produtos");
@@ -49,12 +55,13 @@ function App() {
       categoria: categoria,
     };
 
-    console.log(`o dado da categoria é 2 ${categoria}`);
+    console.log(`o dado da categoria é 2 ${categoria}`); // imprimindo atoa
 
     try {
       if (produtoEmEdicao) {
         const resposta = await fetch(`http://localhost:3001/produtos/${produtoEmEdicao.id}`,
           {
+            credentials: "include",
             method: "PUT",
 
             headers: {
@@ -69,6 +76,7 @@ function App() {
       } else {
         const resposta = await fetch("http://localhost:3001/produtos",
           {
+            credentials: "include",
             method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(dadosProduto),
           }
         );
@@ -101,6 +109,7 @@ function App() {
       console.log(`Entrei no try com o id ${id}`);
       const resposta = await fetch(`http://localhost:3001/produtos/${id}`,
         {
+          credentials: "include",
           method: "DELETE",
         }
       );

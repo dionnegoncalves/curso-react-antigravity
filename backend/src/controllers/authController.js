@@ -64,9 +64,12 @@ function logout(req, res) {
     res.clearCookie(
         "token",
         {
-            httpOnly: true,
-            sameSite: "1ax",
-            secure: process.env.NODE_ENV === "production",
+            httpOnly: true, // impede captura de cookie pelo JS -> Ataque XSS (Cross-Site Scripting)
+            sameSite: "lax", // controla as restrições de envio de cookies entre diferentes domínios, 
+            // somente onde o usuário iniciua (clica, por exemplo)
+            secure: process.env.NODE_ENV === "production", //permite apenas que cookies sejam enviados em 
+            // conexões HTTPS, em produção. Em desenvolvimento não é necessário, pois não estamos usando HTTPS.
+            // maxAge: 60 * 60 * 1000, -> Expira em 1 hora em milissegundos
         }
     );
 
