@@ -9,10 +9,10 @@ async function listarProdutos(req, res) {
 
 async function criarProduto(req, res) {
     // chama o validador de produto, passa o body da req
-    const dados = validarProduto(req.body);
+    const dados = validarProduto(req.body); // recebe e direciona a regra de negócio
 
     // se passou chama o criarProduto 
-    const produto = await produtoServices.criarProduto(dados);
+    const produto = await produtoServices.criarProduto(dados); // recebe e direciona a regra de negócio
 
     // retorno com status 2101: create 
     res.status(201).json(produto);
