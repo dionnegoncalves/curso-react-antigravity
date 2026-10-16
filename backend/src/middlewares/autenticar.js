@@ -20,7 +20,7 @@ function autenticar(req, res, next) {
     // pode ter uym invasor e caputar a requesição e pegar o req.cookies? respostas: não, por causa do httponly e do sameSite   
 
     if (!token) {
-        throw new AppError("Usuyário não autenticado.", 401);
+        throw new AppError("Usuário não autenticado. -> autenticar.js", 401);
     }
 
     try {

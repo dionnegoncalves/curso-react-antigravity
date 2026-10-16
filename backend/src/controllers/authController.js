@@ -5,6 +5,23 @@ import { validarCadastro, validarLogin } from "../validators/authValidator.js"; 
 // que exportou tudo com o *. na verdade o authService exportou somente duas funções tambem. 
 // então tanto o authServices.js quanto o authValidator.js exportou somente duas funções.
 // porque na hora de importar do authService usuou-se * as funções estão ali? respostas: porque o authService exportou tudo com o *.
+import { prisma } from "../lib/prisma.js";
+
+async function me(req, res) {
+    const usuario = await prisma.usuario.findUnique({
+        where: {
+            id: req.usuarioId
+        },
+
+        select: {
+            id: true,
+            nome: true,
+            email: true,
+        }
+    });
+
+    res.json({ usuario });
+}
 
 async function cadastrar(req, res) {
     const dados = await validarCadastro(req.body); // recebe e direciona a regra de negócio -> recebe objeto

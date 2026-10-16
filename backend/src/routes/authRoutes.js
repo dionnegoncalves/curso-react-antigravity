@@ -1,10 +1,14 @@
 import express from "express";
 
-import { cadastrar, login, logout } from "../controllers/authController.js";
+import { cadastrar, login, logout, me } from "../controllers/authController.js";
 
 import asyncHandler from "../middlewares/asyncHandler.js";
 
+import autenticar from "../middlewares/autenticar.js";
+
 const router = express.Router();
+
+router.get("/me", autenticar, asyncHandler(me));
 
 router.post("/cadastro", asyncHandler(cadastrar)); // se o usuario acessar o /cadastra vai rodar a função cadastrar e por estar dentro do asyncHandler ele é "envelopado", 
 // ou seja, a função vai ser executada e se der erro, o asyncHandler vai tratar o erron e se não der erro ele retorna 201 e a resposta e o Status code, o que acontece 

@@ -54,7 +54,7 @@ app.use(
 // se não tiver, ele chama o errorHandler.
 
 
-app.use("/auth", authRoutes); // chama as rotas de autenticação (cad, login e logout)
+app.use("/auth", authRoutes); // chama as rotas de autenticação (cad, login e logout), somente quando for fazer autenticação
 
 app.use(notFound); // por que essa função está sendo chamada toda hora? respostas: porque ela está sendo chamada toda vez que o 
 // frontend envia uma requisição para o backend.

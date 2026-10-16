@@ -35,9 +35,12 @@ function Login(aoLogar) {
         <form onSubmit={enviar}>
             <h1>Login</h1>
 
-            <input type="email" placeholder="E-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
-            <input type="password" placeholder="Senha" value={senha} onChange={(event) => setSenha(event.target.value)} />
-            <button type="submit">ENTRAR</button>
+            <input className="border-2 border-gray-400 rounded" type="email" placeholder="E-mail" value={email} onChange={(event) => setEmail(event.target.value)} />
+            <input className="border-2 border-gray-400 rounded" type="password" placeholder="Senha" value={senha} onChange={(event) => setSenha(event.target.value)} />
+            <button className="inline-flex items-center justify-center gap-2 rounded-xl 
+            bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-emerald-600/20 transition-all
+            duration-200 hover:-translate-y-0.5 hover:from-emerald-500 hover:to-teal-500 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-95 focus:outline-none 
+            focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 cursor-pointer" type="submit">ENTRAR</button>
 
 
         </form>

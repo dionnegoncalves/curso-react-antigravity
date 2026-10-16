@@ -3,8 +3,10 @@ import { useState, useEffect } from 'react'
 import Header from "./components/Header"
 import FormularioProduto from './components/FormularioProduto';
 import ListaProdutos from './components/ListaProdutos';
+import Login from './components/Login';
 
 function App() {
+  const [usuario, setUsuario] = useState(null);
   const [nome, setNome] = useState("");
   const [preco, setPreco] = useState("");
   const [estoque, setEstoque] = useState("");
@@ -135,6 +137,12 @@ function App() {
     setPreco("");
     setEstoque("");
     setCategoria("");
+  }
+
+  if (!usuario) {
+    return (
+      <Login aoLogar={setUsuario} />
+    )
   }
 
   return (
