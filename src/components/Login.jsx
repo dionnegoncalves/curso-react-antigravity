@@ -27,7 +27,7 @@ function Login(aoLogar) {
 
         }
 
-        aoLogar(dados.usuario); // chama a função que foi enviada via props, no caso, o componente App
+        aoLogar(dados.usuario); // chama a função que foi enviada via props, no caso, o componente App -> setUsuario
 
     }
 
@@ -94,13 +94,6 @@ export default Login;
         }
     }
 }*/
-
-
-
-
-
-
-
 
 
 /*

@@ -8,7 +8,10 @@ import autenticar from "../middlewares/autenticar.js";
 
 const router = express.Router();
 
-router.get("/me", autenticar, asyncHandler(me));
+router.get("/me", autenticar, asyncHandler(me)); // por que aqui tem 3 parametro? porque a rota /me é uma rota protegida que precisa de validação antes de entregar a resposta.
+// o autenticar é um middleware que vai verificar se o usuario esta logado e se estiver ele vai passar para o asyncHandler que vai executar a função me e retornar a resposta e 
+// o status code. o asyncHandler é um middleware que vai tratar o erro e retornar a resposta e o status code. o asyncHandler nao e obrigatorio ja que a função me 
+// a tem um TryCatch? Resposta: nao, porque o asyncHandler ele padroniza o retorno em caso de erro, enviando sempre uma resposta em json com a mensagem de erro e o status code. 
 
 router.post("/cadastro", asyncHandler(cadastrar)); // se o usuario acessar o /cadastra vai rodar a função cadastrar e por estar dentro do asyncHandler ele é "envelopado", 
 // ou seja, a função vai ser executada e se der erro, o asyncHandler vai tratar o erron e se não der erro ele retorna 201 e a resposta e o Status code, o que acontece 

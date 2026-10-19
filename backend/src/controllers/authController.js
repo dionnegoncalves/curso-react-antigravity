@@ -97,4 +97,5 @@ export {
     cadastrar,
     login,
     logout,
+    me,
 };
