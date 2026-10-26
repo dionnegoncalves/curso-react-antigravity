@@ -11,7 +11,7 @@ function validarCadastro(dados) {
         throw new AppError("O nome deve ter pelo menos 3 caracteres", 400);
     }
 
-    if (!email.includes("@") || !email.includes(".")) {
+    if (!email.includes("@") || !email.includes(".")) { // pode-se usar REGEX para validar e-mail.
         throw new AppError("E-mail inválido", 400);
     }
 

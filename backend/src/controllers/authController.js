@@ -24,7 +24,7 @@ async function me(req, res) {
 }
 
 async function cadastrar(req, res) {
-    const dados = await validarCadastro(req.body); // recebe e direciona a regra de negócio -> recebe objeto
+    const dados = validarCadastro(req.body); // recebe e direciona a regra de negócio -> recebe objeto
 
     // se passou pelo validador, vai para o service
     const usuario = await authService.cadastrarUsuario(dados); // recebe e direciona a regra de negócio -> recebe objeto
@@ -68,6 +68,10 @@ async function login(req, res) {
             secure: true,
             sameSite: "strict",
             maxAge: 60 * 60 * 1000,*/
+
+            /*Em ambiente local (localhost:5173 para localhost:3001) funciona bem. No entanto, caso você venha a hospedar o frontend e backend 
+            em domínios/subdomínios cruzados diferentes (ex: Vercel e Render), cookies com sameSite: "lax" serão bloqueados pelo navegador em 
+            requisições assíncronas do React. Nesses casos, o padrão exigido pela web é sameSite: "none" combinado com secure: true.*/
         }
     );
 

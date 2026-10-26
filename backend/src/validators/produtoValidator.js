@@ -39,13 +39,19 @@ function validarProduto(dados) {
             400);
     }
 
+    if (nome.length > 11) {
+        throw new AppError(
+            "O nome do produto deve ter menos de 11 caracteres",
+            400);
+    }
+
     if (nome === "") {
         throw new AppError(
             "O nome do produto é obrigatório",
             400);
     }
 
-    if (!Number.isFinite(preco) || preco <= 0) {
+    if (!Number.isFinite(preco) || preco <= 0) { // o que é Number.isFinite? R: verifica se numero é finito
         throw new AppError(
             "O preço deve ser maior que 0",
             400,
