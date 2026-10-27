@@ -6,10 +6,9 @@ async function listarProdutos() {
 
     return prisma.produto.findMany({
         orderBy: {
-            id: "asc",
+            id: "asc", // o "asc" significa ordem crescente e o "desc" significa ordem decrescente. 
         },
     });
-
 }
 
 

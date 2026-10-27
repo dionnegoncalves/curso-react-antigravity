@@ -12,5 +12,5 @@ const prisma = new PrismaClient({
     adapter,
 });
 
-export { prisma }; // aqui está expostando a variável? sim. porque está entre chaves? respostas: 
-// porque está expostando a variável, não a função.  
+export { prisma }; // aqui está exportando a variável? sim. porque está entre chaves? respostas: 
+// porque está exportando a variável, não a função.  
