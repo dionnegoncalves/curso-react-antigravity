@@ -60,6 +60,39 @@ describe("produtoService", () => {
             },
         });
     })
+
+    it("deve criar um produto", async () => {
+        const dados = {
+            nome: "Café",
+            preco: 15,
+            estoque: 10,
+            categoria: "Pães",
+        };
+
+        const produtoCriado = {
+            id: 1,
+            ...dados,
+        };
+
+        prismaMock.produto.create.mockResolvedValue(produtoCriado); // qdo a função create mock é chamada, o mockeResolvedValue 
+        // finge que a função create do prisma foi chamada e retornou o valor de produtoCriado. Promise resolvida.
+
+        const resultado = await criarProduto(dados); // chamamos a função criarProduto passando os dados.
+
+        expect(resultado).toEqual(produtoCriado);
+
+        expect(prismaMock.produto.create).toHaveBeenCalledWith({
+            data: dados,
+        });
+
+        expect(prismaMock.produto.create).toHaveBeenCalledTimes(1);
+
+
+
+
+
+
+    })
 })
 
 
