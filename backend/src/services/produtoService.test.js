@@ -20,13 +20,14 @@ vi.mock("../lib/prisma.js", () => ({ // ({retorna obj sem usar return})
 })
 );
 
-import { listarProdutos, criarProduto, atualizarProduto, excluirProduto } from "./produtoService.js";
+import { listarProdutos, criarProduto, atualizarProduto, excluirProduto } from "./produtoService.js"; // importando as funções verdadeiras
 
 beforeEach(() => {
     vi.clearAllMocks(); // isso vai limpar todos os mocks que foram criados.
 });
 
 describe("produtoService", () => {
+
     it("deve listar os produtos", async () => {
         const produtosFalsos = [
             {
@@ -71,7 +72,7 @@ describe("produtoService", () => {
 
         const produtoCriado = {
             id: 1,
-            ...dados, // spread deto das atributos do obdados, inserindo os valores de dados no objeto produtoCriado.o obj
+            ...dados, // spread dentro dos atributos, inserindo os valores de dados no objeto produtoCriado.o obj
         };
 
         prismaMock.produto.create.mockResolvedValue(produtoCriado); // qdo a função create mock é chamada, o mockeResolvedValue 
@@ -153,7 +154,7 @@ describe("produtoService", () => {
             categoria: "Maça",
         })).rejects.toThrow("Produto não encontrado");
 
-        // testar que o update nem foi chamado, pois deu erro no findUnique
+        // testar que o update nem foi chamado, pois deu erro no findUnique -> pois se não existe, não pode tentar atualiza-lo.
         expect(prismaMock.produto.update).not.toHaveBeenCalled();
 
         // const resultado = await atualizarProduto(999, {
@@ -165,6 +166,47 @@ describe("produtoService", () => {
 
         // expect(resultado).rejects.toThrow("Produto não encontrado");
 
+    });
+
+    it("deve excluir um produto existente", async () => {
+        const produtoParaExcluir = {
+            id: 1,
+            nome: "Café",
+            preco: 10,
+            estoque: 2,
+            categoria: "Café",
+        };
+
+        prismaMock.produto.findUnique.mockResolvedValue(produtoParaExcluir);
+
+        prismaMock.produto.delete.mockResolvedValue(produtoParaExcluir);
+        console.log("ID: " + produtoParaExcluir.id);
+        const resultado = await excluirProduto(produtoParaExcluir.id);
+
+        expect(resultado).toEqual(produtoParaExcluir);
+
+        expect(prismaMock.produto.findUnique).toHaveBeenCalledWith({
+            where: {
+                id: 1,
+            }
+        });
+
+        expect(prismaMock.produto.delete).toHaveBeenCalledWith({
+            where: {
+                id: 1,
+            }
+        });
+    });
+
+    it("deve retornar erro ao tentar excluir um produto inexistente", async () => {
+
+        const produtoNaoEncontrado = null;
+
+        prismaMock.produto.findUnique.mockResolvedValue(produtoNaoEncontrado);
+
+        await expect(excluirProduto(999)).rejects.toThrow("Produto não encontrado");
+
+        expect(prismaMock.produto.delete).not.toHaveBeenCalled();
     })
 })
 
