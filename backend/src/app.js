@@ -45,7 +45,11 @@ app.get("/", function (req, res) {
 
 app.use(
     "/produtos", produtoRoutes // esta falando que nao esta encontrando esta rota
-); // como isso funciona? respostas: o "/produtos" é o caminho que será adicionado a todas as rotas que estão no arquivo produtoRoutes.js, como o código sabe que é para adicionar, se não concatena, nem passa como parametro? respostas: o arquivo produtoRoutes.js é um objeto que exporta as rotas, e o app.use está recebendo esse objeto como parâmetro, e o "/produtos" é o caminho que será adicionado a todas as rotas que estão no arquivo produtoRoutes.js. por que o app.use recebe o objeto, se ele é uma função que recebe uma função como parametro? respostas: o app.use é uma função que recebe uma função como parametro, mas ele também recebe outros parametros, como o caminho que será adicionado a todas as rotas que estão no arquivo produtoRoutes.js, e o objeto que exporta as rotas.
+); // como isso funciona? respostas: o "/produtos" é o caminho que será adicionado a todas as rotas que estão no arquivo produtoRoutes.js, como o código sabe que é para adicionar, 
+// se não concatena, nem passa como parametro? respostas: o arquivo produtoRoutes.js é um objeto que exporta as rotas, e o app.use está recebendo esse objeto como parâmetro, 
+// e o "/produtos" é o caminho que será adicionado a todas as rotas que estão no arquivo produtoRoutes.js. por que o app.use recebe o objeto, se ele é uma função que recebe 
+// uma função como parametro? respostas: o app.use é uma função que recebe uma função como parametro, mas ele também recebe outros parametros, como o caminho que será adicionado 
+// a todas as rotas que estão no arquivo produtoRoutes.js, e o objeto que exporta as rotas.
 
 // me explique o fluxo correto para que esse caminho /produtos seja adicionado Às rotas, de forma simples?
 // quando o frontend envia uma requisição para o backend, por exemplo GET /api/v1/produtos/1, o que acontece?

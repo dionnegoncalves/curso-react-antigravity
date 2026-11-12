@@ -9,7 +9,7 @@ function FormularioProduto({
     setCategoria,
     adicionarProduto,
     produtoEmEdicao,
-    cancelaerEdicao,
+    cancelarEdicao,
 }) {
 
     return (
@@ -47,7 +47,10 @@ function FormularioProduto({
             <p>Categoria: {categoria}</p> 
             */}
 
-            <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-emerald-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:from-emerald-500 hover:to-teal-500 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 cursor-pointer"
+            <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-600 
+            to-teal-600 px-6 py-3.5 text-base font-bold text-white shadow-lg shadow-emerald-600/20 transition-all duration-200 hover:-translate-y-0.5 
+            hover:from-emerald-500 hover:to-teal-500 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-500 
+            focus:ring-offset-2 cursor-pointer"
                 type='submit'>
                 {produtoEmEdicao // se tiver obj na variável altera o texto
                     ? "Salvar alterações"
@@ -56,7 +59,7 @@ function FormularioProduto({
             </button>
 
             {produtoEmEdicao && (// type=button para evitar que o site tente enviar o form
-                <button type="button" onClick={cancelaerEdicao}>
+                <button type="button" onClick={cancelarEdicao}>
                     Cancelar
                 </button>
             )}

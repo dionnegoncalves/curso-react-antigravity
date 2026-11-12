@@ -25,7 +25,7 @@ function Cadastro({ aoVoltarLogin }) {
                     method: "POST",
                     credentials: "include",
 
-                    headers: { "ContentType": "application/json" },
+                    headers: { "Content-Type": "application/json" },
 
                     body: JSON.stringify({
                         nome,
@@ -42,7 +42,7 @@ function Cadastro({ aoVoltarLogin }) {
                 return;
             }
 
-            setMensagem("Usuário cadastradop com sucesso");
+            setMensagem("Usuário cadastrado com sucesso");
 
             setNome("");
             setEmail("");
@@ -52,38 +52,40 @@ function Cadastro({ aoVoltarLogin }) {
         } catch (erro) {
             console.error(erro);
 
-            setErro("Não foi possível conectar ao servidoitr");
+            setErro("Não foi possível conectar ao servidor");
         }
     }
 
 
+
+
+    return (
+        <div>
+            <p>oi de dentro do cadastro</p>
+            <h1>Criar Conta</h1>
+
+            <form onSubmit={cadastrar}>
+
+                <input type="text" placeholder="Nome" value={nome} onChange={(event) => setNome(event.target.value)} />
+
+                <input type="text" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} />
+
+                <input type="password" placeholder="Senha" value={senha} onChange={(event) => setSenha(event.target.value)} />
+
+                <input type="password" placeholder="Confirmar Senha" value={confirmarSenha} onChange={(event) => setConfirmarSenha(event.target.value)} />
+
+                <button type="submit">Cadastrar</button>
+
+            </form>
+
+            {erro && (<p>{erro}</p>)}
+            {mensagem && (<p>{mensagem}</p>)}
+
+            <button type="button" onClick={aoVoltarLogin}>Voltar</button>
+
+        </div>
+    )
 }
-
-retur(
-    <div>
-        <h1>Criar Conta</h1>
-
-        <form onSubmit={cadastrar}>
-
-            <input type="text" placeholder="Nome" value={nome} onChange={(event) => setNome(event.target.value)} />
-
-            <input type="text" placeholder="Email" value={email} onChange={(event) => setEmail(event.target.value)} />
-
-            <input type="password" placeholder="Senha" value={senha} onChange={(event) => setSenha(event.target.value)} />
-
-            <input type="password" placeholder="Confirmar Senha" value={confirmarSenha} onChange={(event) => setConfirmarSenha(event.target.value)} />
-
-            <button type="submit">Cadastrar</button>
-
-        </form>
-
-        {erro && (<p>{erro}</p>)}
-        {mensagem && (<p>{mensagem}</p>)}
-
-        <button type="button" onCLick="{aoVoltarLogin}"></button>
-
-    </div>
-)
 
 export default Cadastro;
 

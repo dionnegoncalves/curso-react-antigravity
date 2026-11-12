@@ -26,4 +26,12 @@ describe("API", () => {
         expect(resposta.body.erro).toContain("Rota não encontrada");
     });
 
+    it("deve impedir acesso aos produtos sem autenticação", async () => {
+        const resposta = await request(app).get("/produtos");
+
+        expect(resposta.status).toBe(401);
+
+        expect(resposta.body.erro).toBe("Usuário não autenticado. -> autenticar.js");
+    })
+
 });

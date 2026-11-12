@@ -1,7 +1,7 @@
 import AppError from "../utils/AppError";
 
 function notFound(req, res, next) { // quando que entra nesta função no componente app.js? 
-    res.send("Página não encontrada.");
+    // res.send("Página não encontrada.");
     next(
         new AppError(
             `Rota não encontrada: ${req.method} ${req.originalUrl}`,

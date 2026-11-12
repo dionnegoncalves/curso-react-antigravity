@@ -4,6 +4,8 @@ import Header from "./components/Header"
 import FormularioProduto from './components/FormularioProduto';
 import ListaProdutos from './components/ListaProdutos';
 import Login from './components/Login';
+import Cadastro from "./components/Cadastro";
+
 
 function App() {
   const [usuario, setUsuario] = useState(null);
@@ -13,6 +15,7 @@ function App() {
   const [categoria, setCategoria] = useState("");
   const [produtos, setProdutos] = useState([]);
   const [produtoEmEdicao, setProdutoEmEdicao] = useState(null); // null significa "nenhum produto em edição"
+  const [telaAuth, setTelaAuth] = useState("login");
 
   useEffect(() => {
     verificarSessao();
@@ -21,9 +24,24 @@ function App() {
   // useEffect é para fazer requisições quando o componente montar (for criado, ser modificado ou destruido) // o uso do [] fala para o useEffect para executar 
   // somente uma vez, quando o componente for montado
   useEffect(() => {
-    carregadorProdutos();
-  }, []); //usa-se o [] para informar que a função deve ser executado somente uma vez, quando o componente for montado (na raiz) // se colocar uma variável
-  // dentro do array, o useEffect será executado toda vez que a variável for alterada
+    if (usuario) {
+      carregadorProdutos();
+    }
+  }, [usuario]); //usa-se o [] para informar que a função deve ser executado somente uma vez, quando o componente for montado (na raiz) // se colocar uma variável
+  // dentro do array, o useEffect será executado toda vez que a variável for alterada. Porque usuario apareceu aqui?
+
+  if (!usuario) {
+
+    if (telaAuth === "cadastro") {
+      return (
+        <Cadastro aoVoltarLogin={() => setTelaAuth("login")} />
+      );
+    }
+
+    return (
+      <Login aoLogar={setUsuario} aoCadastrar={() => setTelaAuth("cadastro")} />
+    )
+  }
 
   async function verificarSessao() {
     try {
@@ -31,10 +49,10 @@ function App() {
         {
           credentials: "include",
         }
-      ); // await para aguardar carregar os produtos
+      );
 
       if (!resposta.ok) {
-        throw new Error("Erro ao buscar produtos");
+        throw new Error("Erro ao buscar usuário");
       }
 
       const dados = await resposta.json(); // aguarda resposta em json -> transformar em obj JS
@@ -163,13 +181,6 @@ function App() {
     setCategoria("");
   }
 
-  if (!usuario) {
-    console.log("entrei no usuario null");
-    return (
-      <Login aoLogar={setUsuario} />
-    )
-  }
-
   async function logout() {
     await fetch("http://localhost:3001/auth/logout",
       {
@@ -183,7 +194,7 @@ function App() {
 
   return (
     <main>
-      <Header />
+      <Header logout={logout} />
 
       <FormularioProduto // enviando props
         nome={nome}

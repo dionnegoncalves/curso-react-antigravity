@@ -1,4 +1,4 @@
-function Header() {
+function Header({ logout }) { // props tem que ter chaves
     return (
         <>
             <h1>Produtos Cadastrados</h1>
@@ -6,6 +6,7 @@ function Header() {
 
         </>
     );
+
 }
 
 export default Header; 
