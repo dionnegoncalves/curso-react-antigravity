@@ -49,6 +49,7 @@ async function autenticarUsuario({
     email,
     senha,
 }) {
+    console.log("entrei na fn authService.js");
     const usuario = await prisma.usuario.findUnique({
         where: { email, }
     });

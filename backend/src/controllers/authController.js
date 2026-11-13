@@ -34,7 +34,7 @@ async function cadastrar(req, res) {
 
 async function login(req, res) {
     const dados = validarLogin(req.body);
-
+    console.log("Dados enviados para o login: " + dados.email);
     // se passar pelo validador
     const usuario = await authService.autenticarUsuario(dados); // recebe e direciona a regra de negócio -> recebe objeto
 
